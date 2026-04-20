@@ -21,4 +21,4 @@ Here are some ideas to get you started:
 - 💬 Ask me about ... anything.
 - 📫 How to reach me: ... huh
 - 😄 Pronouns: ... he
-- ⚡ Fun fact: ... Intel is the best value cpu (arrow lake refresh 250K, 250KF, 270K)
+- ⚡ Fun fact: ... Intel is the best value cpu (arrow lake refresh 250K, 250KF, 270K) also idk why i am saying this here what what what 
