@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kernel types</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="avatar" aria-hidden="true"></div>
+    <div>
+      <h1><span class="glow-text">Kernel Types</span></h1>
+      <div class="subtitle">how much lives in ring 0, and why</div>
+    </div>
+  </header>
+
+  <p class="prompt"><span class="path">~/kernels</span> <span class="dollar">$</span> ls -l ./types<span class="cursor-blink">&nbsp;</span></p>
+
+  <section>
+    <h2>Monolithic Kernel</h2>
+    <div class="card">
+      <h3>Everything in ring 0</h3>
+      <p>Drivers, filesystems, networking, and scheduling all run in kernel space as one large privileged binary. Fast (no IPC overhead between subsystems) but a bug in any driver can crash the whole system. Linux and (classic) Windows NT-derived kernels are the canonical examples — though both have grown loadable-module and hybrid-ish traits over time.</p>
+      <div class="tags"><span class="tag">Linux</span><span class="tag">fast</span><span class="tag">large attack surface</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Microkernel</h2>
+    <div class="card">
+      <h3>Minimal ring 0, everything else in userspace</h3>
+      <p>Only the bare essentials — IPC, basic scheduling, minimal memory management — run privileged. Drivers, filesystems, and even parts of networking run as unprivileged user-space servers that talk to each other via message passing. Much smaller trusted computing base, but message-passing overhead can cost real performance. seL4, Minix, and QNX are classic examples.</p>
+      <div class="tags"><span class="tag">seL4</span><span class="tag">QNX</span><span class="tag">IPC-heavy</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Nanokernel</h2>
+    <div class="card">
+      <h3>Even less than a microkernel</h3>
+      <p>Pushes the "minimal privileged core" idea further than a microkernel — sometimes reduced to just interrupt handling and the most basic hardware abstraction, with essentially everything else, including most memory management, delegated upward. The term is used loosely and inconsistently across projects; in practice the line between "nanokernel" and "very small microkernel" is fuzzy. KeyKOS and some embedded/real-time designs are cited as nanokernels.</p>
+      <div class="tags"><span class="tag">KeyKOS</span><span class="tag">embedded</span><span class="tag">fuzzy definition</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Hybrid Kernel</h2>
+    <div class="card">
+      <h3>Monolithic performance, microkernel-ish structure</h3>
+      <p>Keeps a microkernel-style architecture on paper — message passing, modular services — but runs many of those services in kernel space anyway for performance, blurring the line back toward monolithic. Windows NT (from the design docs) and XNU (macOS/iOS's kernel, a Mach + BSD hybrid) are the usual examples. Essentially a pragmatic compromise between the two extremes.</p>
+      <div class="tags"><span class="tag">XNU</span><span class="tag">Windows NT</span><span class="tag">compromise</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Exokernel</h2>
+    <div class="card">
+      <h3>Multiplex hardware, implement nothing</h3>
+      <p>The kernel's only job is to securely multiplex physical resources (CPU time, memory pages, disk blocks, network packets) between applications — it does <em>not</em> impose abstractions like files or processes-as-you-know-them. Those abstractions live in library operating systems (libOSes) linked into each application (or, as an intermediate step, in a kernel-space libOS). This gives applications near-total control over how their resources are managed, at the cost of needing every app (or libOS) to implement its own OS-level policy. MIT's original Exokernel/XOK project coined the term; <strong>HepOS</strong> follows this model.</p>
+      <div class="tags"><span class="tag">HepOS</span><span class="tag">MIT Exokernel</span><span class="tag">libOS</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Full Ring 0 OS</h2>
+    <div class="card">
+      <h3>No separation at all</h3>
+      <p>Not really a formal "kernel type" in academic taxonomies, but a useful catch-all for systems where there's no ring 3 / userspace split at all — everything, including application code, runs at the highest privilege level. Common in tiny embedded systems, bootloaders, and early-stage hobby OSes before ring-3 support is implemented (a phase HepOS itself passed through before syscalls and per-process page tables landed). Simple to build, but a single wild pointer anywhere can take down the whole machine — zero fault isolation.</p>
+      <div class="tags"><span class="tag">embedded</span><span class="tag">bootloaders</span><span class="tag">no isolation</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Continue</h2>
+    <div class="links">
+      <a href="kernel-languages.html">Kernel languages →</a>
+      <a href="hepos.html">← HepOS project details</a>
+      <a href="index.html">← home</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="path">~/kernels</span> <span class="dollar">$</span> _
+  </footer>
+
+  <script src="bg-fx.js"></script>
+</body>
+</html>

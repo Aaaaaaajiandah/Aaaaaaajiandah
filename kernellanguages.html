@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kernel languages</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="avatar" aria-hidden="true"></div>
+    <div>
+      <h1><span class="glow-text">Kernel Languages</span></h1>
+      <div class="subtitle">what you can actually write a whole kernel in</div>
+    </div>
+  </header>
+
+  <p class="prompt"><span class="path">~/kernels</span> <span class="dollar">$</span> ls -l ./languages<span class="cursor-blink">&nbsp;</span></p>
+
+  <section>
+    <h2>C</h2>
+    <div class="card">
+      <h3>The default for 50 years running</h3>
+      <p>Linux, the BSDs, XNU's core, and most textbook kernels are C. It maps almost 1:1 onto what hardware actually does — no hidden allocations, no hidden control flow, a stable ABI story, and every OS-dev tutorial and reference assumes it. The tradeoff is that memory safety is entirely on you: use-after-free, buffer overflows, and null derefs are the classic kernel CVE categories, precisely because nothing in the language stops them.</p>
+      <div class="tags"><span class="tag">Linux</span><span class="tag">BSD</span><span class="tag">manual memory mgmt</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>C++</h2>
+    <div class="card">
+      <h3>C with more abstraction, same sharp edges</h3>
+      <p>Used in Windows NT's kernel and parts of some embedded/RTOS kernels. Gives you classes, templates, and RAII-style resource management, which can make driver code more structured — but exceptions, RTTI, and the STL generally aren't usable (or need heavy customization) in a freestanding kernel environment, so most kernel C++ is a restricted subset that looks a lot like "C with classes."</p>
+      <div class="tags"><span class="tag">Windows NT</span><span class="tag">restricted subset</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rust</h2>
+    <div class="card">
+      <h3>Memory safety without a garbage collector</h3>
+      <p>The ownership/borrow-checker model catches most of C's classic memory bugs at compile time, with no runtime GC — a rare combination for systems programming. Requires <code>no_std</code> (dropping the standard library's OS assumptions) plus a small amount of <code>unsafe</code> for the genuinely unsafe parts hardware forces on you (raw MMIO, inline asm, page table writes). <strong>HepOS</strong> is written this way: Rust nightly, <code>no_std</code> + <code>alloc</code>, with the entire bootloader handoff reduced to five lines of inline asm. Redox OS is another example of a from-scratch Rust kernel.</p>
+      <div class="tags"><span class="tag">HepOS</span><span class="tag">Redox</span><span class="tag">no_std</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Zig</h2>
+    <div class="card">
+      <h3>C's directness, modern ergonomics</h3>
+      <p>A newer systems language aiming to be "what C would look like designed today" — no hidden control flow or allocations (same philosophy as C), but with better error handling (explicit error unions), comptime metaprogramming, and easier cross-compilation. Doesn't have Rust's compile-time memory-safety guarantees, but many find it a gentler starting point for OS dev since it stays close to C's mental model. Still young; less kernel-dev prior art and tooling than C, C++, or Rust.</p>
+      <div class="tags"><span class="tag">comptime</span><span class="tag">young ecosystem</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Assembly</h2>
+    <div class="card">
+      <h3>Unavoidable in small doses, painful in large ones</h3>
+      <p>Every kernel needs <em>some</em> assembly — the handful of operations no high-level language exposes directly: the initial boot handoff, context switches, interrupt/exception entry stubs, and privileged instructions like <code>cli</code>/<code>iretq</code>/<code>swapgs</code>/writing <code>CR3</code>. The craft in modern OS dev is minimizing this footprint rather than eliminating it — HepOS's own bootloader gets its entire asm surface down to five instructions (set CR3, set RSP, zero RBP, jump to the kernel), with literally everything else, including UEFI FFI calls, written in ordinary Rust.</p>
+      <div class="tags"><span class="tag">context switches</span><span class="tag">boot handoff</span><span class="tag">privileged instructions</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Continue</h2>
+    <div class="links">
+      <a href="kernel-types.html">← Kernel types</a>
+      <a href="hepos.html">← HepOS project details</a>
+      <a href="index.html">← home</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="path">~/kernels</span> <span class="dollar">$</span> _
+  </footer>
+
+  <script src="bg-fx.js"></script>
+</body>
+</html>

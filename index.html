@@ -1,187 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aaaaaaajiandah</title>
-<style>
-  :root {
-    --bg: #0b0d10;
-    --bg-alt: #12151a;
-    --fg: #e6e6e6;
-    --muted: #8a929e;
-    --accent: #7ee787;
-    --accent2: #58a6ff;
-    --border: #232830;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--mono);
-    line-height: 1.6;
-  }
-  body {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 4rem 1.5rem 6rem;
-  }
-  a { color: var(--accent2); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-  .avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    flex-shrink: 0;
-  }
-  h1 {
-    margin: 0;
-    font-size: 1.4rem;
-    color: var(--fg);
-  }
-  .wave { display: inline-block; animation: wave 2.2s infinite; transform-origin: 70% 70%; }
-  @keyframes wave {
-    0%, 60%, 100% { transform: rotate(0deg); }
-    10% { transform: rotate(14deg); }
-    20% { transform: rotate(-8deg); }
-    30% { transform: rotate(14deg); }
-    40% { transform: rotate(-4deg); }
-    50% { transform: rotate(10deg); }
-  }
-  .subtitle {
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin-top: 0.25rem;
-  }
-
-  .prompt {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin: 0 0 1rem;
-  }
-  .prompt .path { color: var(--accent2); }
-  .prompt .dollar { color: var(--accent); }
-
-  section {
-    margin-bottom: 2.5rem;
-  }
-  section h2 {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  ul.facts {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  ul.facts li {
-    padding: 0.55rem 0;
-    border-bottom: 1px dashed var(--border);
-    display: flex;
-    gap: 0.75rem;
-  }
-  ul.facts li:last-child { border-bottom: none; }
-  ul.facts .emoji { flex-shrink: 0; }
-
-  .card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem 1.5rem;
-  }
-  .card h3 {
-    margin: 0 0 0.5rem;
-    color: var(--accent);
-    font-size: 1.05rem;
-  }
-  .card p { margin: 0; color: var(--muted); }
-  .tags {
-    margin-top: 0.9rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .tag {
-    font-size: 0.75rem;
-    color: var(--accent2);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.2rem 0.7rem;
-  }
-
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  .links a {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem 0.9rem;
-    color: var(--fg);
-  }
-  .links a:hover {
-    border-color: var(--accent2);
-    text-decoration: none;
-  }
-
-  footer {
-    margin-top: 3rem;
-    color: var(--muted);
-    font-size: 0.8rem;
-    text-align: center;
-  }
-
-  ::selection { background: var(--accent2); color: #04121f; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
     <div class="avatar" aria-hidden="true"></div>
     <div>
-      <h1><span class="wave">👋</span> Hi, I'm Aaaaaaajiandah</h1>
+      <h1><span class="wave">👋</span> Hi, I'm <span class="glow-text">Aaaaaaajiandah</span></h1>
       <div class="subtitle">systems tinkerer / rust enjoyer / cpu opinion haver</div>
     </div>
   </header>
 
-  <p class="prompt"><span class="path">~/aaaaaaajiandah</span> <span class="dollar">$</span> cat about.txt</p>
+  <p class="prompt"><span class="path">~/aaaaaaajiandah</span> <span class="dollar">$</span> cat about.txt<span class="cursor-blink">&nbsp;</span></p>
 
   <section>
     <h2>Now</h2>
     <ul class="facts">
-      <li><span class="emoji">🔭</span><span>Building <strong>HepOS</strong> — an OS based on an exokernel, with plans for a full userland and custom kernel, all written in Rust.</span></li>
-      <li><span class="emoji">🌱</span><span>Learning ... stuff (the eternal state)</span></li>
-      <li><span class="emoji">🤝</span><span>Open to collaborating on ... stuff</span></li>
-      <li><span class="emoji">🤔</span><span>Looking for help with ... deploying a pr_0xy, please</span></li>
-      <li><span class="emoji">💬</span><span>Ask me about ... anything</span></li>
-      <li><span class="emoji">📫</span><span>How to reach me ... huh</span></li>
-      <li><span class="emoji">😄</span><span>Pronouns ... he</span></li>
-      <li><span class="emoji">⚡</span><span>Fun fact: Intel is the best value CPU (Arrow Lake Refresh — 250K, 250KF, 270K)</span></li>
+      <li style="animation-delay:0.05s"><span class="emoji">🔭</span><span>Building <strong>HepOS</strong> — an OS based on an exokernel, with plans for a full userland and custom kernel, all written in Rust.</span></li>
+      <li style="animation-delay:0.10s"><span class="emoji">🌱</span><span>Learning ... stuff (the eternal state)</span></li>
+      <li style="animation-delay:0.15s"><span class="emoji">🤝</span><span>Open to collaborating on ... stuff</span></li>
+      <li style="animation-delay:0.20s"><span class="emoji">🤔</span><span>Looking for help with ... deploying a pr_0xy, please</span></li>
+      <li style="animation-delay:0.25s"><span class="emoji">💬</span><span>Ask me about ... anything</span></li>
+      <li style="animation-delay:0.30s"><span class="emoji">📫</span><span>How to reach me ... huh</span></li>
+      <li style="animation-delay:0.35s"><span class="emoji">😄</span><span>Pronouns ... he</span></li>
+      <li style="animation-delay:0.40s"><span class="emoji">⚡</span><span>Fun fact: Intel is the best value CPU (Arrow Lake Refresh — 250K, 250KF, 270K)</span></li>
     </ul>
   </section>
 
   <section>
     <h2>Featured Project</h2>
-    <div class="card">
+    <a class="card clickable" href="hepos.html">
       <h3>HepOS</h3>
       <p>An operating system built on an exokernel design, aiming for a full custom userland and kernel — written entirely in Rust.</p>
       <div class="tags">
@@ -190,7 +43,8 @@
         <span class="tag">os-dev</span>
         <span class="tag">wip</span>
       </div>
-    </div>
+      <div class="hint">click for project details →</div>
+    </a>
   </section>
 
   <section>
@@ -200,9 +54,12 @@
     </div>
   </section>
 
+  <div class="status-line"><span class="ok">●</span> uptime: since forever</div>
+
   <footer>
     <span class="path">~</span> <span class="dollar">$</span> _
   </footer>
 
+  <script src="bg-fx.js"></script>
 </body>
 </html>

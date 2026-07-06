@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HepOS — project details</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="avatar" aria-hidden="true"></div>
+    <div>
+      <h1><span class="glow-text">HepOS</span></h1>
+      <div class="subtitle">a custom x86_64 exokernel OS, written in Rust from scratch</div>
+    </div>
+  </header>
+
+  <p class="prompt"><span class="path">~/hepos</span> <span class="dollar">$</span> ./sysinfo --random<span class="cursor-blink">&nbsp;</span></p>
+
+  <section>
+    <h2>Overview</h2>
+    <div class="card">
+      <p>HepOS is an <strong>exokernel</strong>: the kernel only multiplexes hardware (memory, storage, input, display). All OS abstractions — filesystem, windowing, shell — live in a kernel-space libOS for now, with userspace as an ongoing milestone. No Linux, no POSIX, no libc. Bootloader is <strong>HepBL</strong>, our own from-scratch UEFI bootloader in pure Rust.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Random facts <span id="reroll-hint" style="text-transform:none;letter-spacing:normal;font-weight:normal;">(reloads on every visit — <a href="javascript:void(0)" onclick="location.reload()">reroll</a>)</span></h2>
+    <ul class="facts" id="fact-list"></ul>
+  </section>
+
+  <section>
+    <h2>Go deeper</h2>
+    <div class="links">
+      <a href="kernel-types.html">Kernel types →</a>
+      <a href="kernel-languages.html">Kernel languages →</a>
+      <a href="https://github.com/The-Hep-Group/HepOS">HepOS on GitHub</a>
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="index.html">← back home</a>
+  </div>
+
+  <footer>
+    <span class="path">~/hepos</span> <span class="dollar">$</span> _
+  </footer>
+
+  <script src="bg-fx.js"></script>
+  <script>
+    var FACTS = [
+      ["✅", "The kernel is a genuine exokernel — hardware multiplexing only, no policy baked in."],
+      ["🦀", "Written in Rust nightly, no_std + alloc, targeting x86_64-unknown-none bare metal."],
+      ["🛫", "HepBL, our own UEFI bootloader, replaced Limine — hand-written UEFI FFI, zero external crates."],
+      ["⚙️", "The entire assembly footprint of the bootloader handoff is five instructions: cli, load CR3, load RSP, zero RBP, jmp to the kernel entry."],
+      ["💾", "HepFS is a custom flat-inode filesystem: 4KB blocks, 12 direct blocks + indirect + double-indirect, max file size ~4GB."],
+      ["🖱️", "Mouse input comes from an XHCI USB HID tablet (absolute coordinates) plus a PS/2 relative mouse fallback."],
+      ["🎨", "The desktop is fully software-rendered onto a GOP framebuffer — double-buffered, no tearing, ~60fps."],
+      ["🪟", "Every app supports multiple instances — Terminal, Editor, Files, Image Viewer — with taskbar grouping and jump lists."],
+      ["🌐", "The networking stack is hand-written: ARP, ICMP, IP, TCP (3-way handshake), a DNS resolver, and an HTTP GET client (wget)."],
+      ["🔊", "Intel HDA audio works via a real DMA PCM stream — beep(hz, ms) and WAV playback, both non-blocking with a poll-once-per-frame state machine."],
+      ["🖥️", "Ring-3 userspace exists: SYSCALL/SYSRET, per-process page tables, an ELF64 loader, and a tiny hepos-std shim (println!, String, Vec)."],
+      ["🐛", "Known bug: real preemption is currently broken — a genuine scheduler bug (EOI ordering, missing sti, GPF on resume) means most of the OS runs as a single always-scheduled task today."],
+      ["🏗️", "Biggest gap vs. the original design: every driver (XHCI, HDA, NVMe, PCI, ACPI, GOP) still runs in-kernel — none have been moved out to the userspace libOS yet."],
+      ["📀", "Storage is NVMe-only right now — no AHCI/SATA driver exists, despite the original plan calling for both."],
+      ["🖼️", "The image viewer only decodes uncompressed BMP; the audio player only decodes 16-bit PCM WAV. Real codec support is blocked on building out a fuller std shim."],
+      ["⌨️", "The terminal has 30+ commands, history, tab completion, and live syntax-highlighted input as you type — reusing the same tokenizer as the text editor."],
+      ["📝", "The text editor supports Ctrl+F find-in-file, drag-to-select, clipboard copy/paste, and basic Rust/C syntax highlighting."],
+      ["🧠", "x2APIC is used in MSR mode specifically to avoid mapping xAPIC MMIO at a fixed physical address."],
+      ["🔌", "PCI devices are enumerated via raw config-space access (ports 0xCF8/0xCFC) — no ACPI tables needed for basic enumeration."],
+      ["🧩", "The memory allocator is a slab allocator with 10 size classes from 8 bytes to 4KB, backed by a bitmap physical memory manager."]
+    ];
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    var chosen = shuffle(FACTS).slice(0, 6);
+    var list = document.getElementById("fact-list");
+    chosen.forEach(function (f, i) {
+      var li = document.createElement("li");
+      li.style.animationDelay = (0.05 * (i + 1)) + "s";
+      var emoji = document.createElement("span");
+      emoji.className = "emoji";
+      emoji.textContent = f[0];
+      var text = document.createElement("span");
+      text.textContent = f[1];
+      li.appendChild(emoji);
+      li.appendChild(text);
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>
