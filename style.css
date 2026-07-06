@@ -205,3 +205,138 @@ footer {
 }
 
 ::selection { background: var(--accent2); color: #04121f; }
+
+/* ============ EXTRA VISUAL NOISE (no reason, just vibes) ============ */
+
+.marquee-wrap {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-alt);
+  overflow: hidden;
+  margin: 0 0 2rem;
+  padding: 0.5rem 0;
+}
+.marquee-wrap marquee {
+  color: var(--accent3);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 2rem;
+}
+.badge-row .badge {
+  font-size: 0.65rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  color: #04121f;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+  background-size: 300% auto;
+  animation: glow-shift 4s linear infinite;
+  box-shadow: 0 0 10px -2px var(--accent2);
+}
+
+/* rainbow chasing border on cards */
+.card {
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  padding: 2px;
+  background: conic-gradient(from var(--rainbow-angle, 0deg), var(--accent), var(--accent2), var(--accent3), var(--accent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  animation: rainbow-spin 4s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+.card:hover::before { opacity: 1; }
+@property --rainbow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rainbow-spin {
+  to { --rainbow-angle: 360deg; }
+}
+
+/* glitchy headings, because why not */
+h1, section h2 {
+  cursor: default;
+  transition: text-shadow 0.15s ease;
+}
+h1:hover, section h2:hover {
+  animation: glitch 0.3s steps(2) infinite;
+}
+@keyframes glitch {
+  0% { text-shadow: 2px 0 var(--accent2), -2px 0 var(--accent3); }
+  50% { text-shadow: -2px 0 var(--accent2), 2px 0 var(--accent3); }
+  100% { text-shadow: 2px 0 var(--accent3), -2px 0 var(--accent2); }
+}
+
+/* sparkle emoji that drifts across the page for absolutely no reason */
+.floaty-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
+  font-size: 1.1rem;
+  animation: float-up linear forwards;
+  opacity: 0.85;
+}
+@keyframes float-up {
+  from { transform: translateY(0) rotate(0deg); opacity: 0.85; }
+  to { transform: translateY(-120px) rotate(180deg); opacity: 0; }
+}
+
+.confetti-btn {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: #04121f;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 0 16px -4px var(--accent2);
+  transition: transform 0.15s ease;
+}
+.confetti-btn:hover { transform: scale(1.06) rotate(-1deg); }
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0.2; }
+}
+
+/* retro visitor odometer, deeply unnecessary */
+.odometer {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 0.6rem;
+  font-family: var(--mono);
+}
+.odometer span {
+  background: #000;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 0.05rem 0.35rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  text-shadow: 0 0 6px var(--accent);
+}

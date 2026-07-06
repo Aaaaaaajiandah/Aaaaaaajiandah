@@ -16,7 +16,19 @@
     </div>
   </header>
 
+  <div class="marquee-wrap">
+    <marquee>★ EXOKERNELS ARE UNDERRATED ★ WRITTEN IN 100% RUST ★ NO LINUX WAS USED IN THE MAKING OF THIS OS ★ HAND CRAFTED BOOTLOADER ★</marquee>
+  </div>
+
+  <div class="badge-row">
+    <span class="badge">🦀 no_std + alloc</span>
+    <span class="badge">🛠️ HepBL bootloader</span>
+    <span class="badge">🐛 preemption: it's complicated</span>
+  </div>
+
   <p class="prompt"><span class="path">~/hepos</span> <span class="dollar">$</span> ./sysinfo --random<span class="cursor-blink">&nbsp;</span></p>
+
+  <button class="confetti-btn" onclick="blastConfetti()" type="button">🎉 sysinfo party mode</button>
 
   <section>
     <h2>Overview</h2>
@@ -48,6 +60,7 @@
   </footer>
 
   <script src="bg-fx.js"></script>
+  <script src="sparkles.js"></script>
   <script>
     var FACTS = [
       ["✅", "The kernel is a genuine exokernel — hardware multiplexing only, no policy baked in."],
