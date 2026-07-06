@@ -340,3 +340,117 @@ h1:hover, section h2:hover {
   font-size: 0.75rem;
   text-shadow: 0 0 6px var(--accent);
 }
+
+/* ============ MAXIMUM GLOW MODE — everything pulses now ============ */
+
+@keyframes mega-pulse {
+  0%, 100% { filter: drop-shadow(0 0 2px var(--accent2)) drop-shadow(0 0 6px var(--accent2)); }
+  50% { filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 16px var(--accent)); }
+}
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 6px -2px var(--accent2), inset 0 0 6px -4px var(--accent2); }
+  50% { box-shadow: 0 0 18px 0px var(--accent), inset 0 0 12px -4px var(--accent); }
+}
+@keyframes text-glow-pulse {
+  0%, 100% { text-shadow: 0 0 4px var(--accent2), 0 0 10px rgba(88,166,255,0.4); }
+  50% { text-shadow: 0 0 10px var(--accent), 0 0 22px rgba(126,231,135,0.6); }
+}
+
+html { scrollbar-color: var(--accent2) var(--bg); }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent), var(--accent2), var(--accent3));
+  border-radius: 6px;
+  box-shadow: 0 0 12px var(--accent2);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: inset 0 0 160px rgba(88, 166, 255, 0.12), inset 0 0 60px rgba(126, 231, 135, 0.08);
+  animation: vignette-pulse 4s ease-in-out infinite;
+}
+@keyframes vignette-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.avatar {
+  animation: gradient-shift 6s ease infinite, border-pulse 2.2s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+h1 .glow-text, h3.glow-text {
+  animation: glow-shift 5s linear infinite, text-glow-pulse 2s ease-in-out infinite;
+}
+
+section h2 {
+  animation: text-glow-pulse 3s ease-in-out infinite;
+  position: relative;
+}
+section h2::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent2), var(--accent), var(--accent3), transparent);
+  animation: glow-shift 3s linear infinite;
+  background-size: 300% auto;
+}
+
+a { transition: text-shadow 0.2s ease, color 0.2s ease; }
+a:hover {
+  text-shadow: 0 0 8px var(--accent2), 0 0 16px var(--accent2);
+  color: var(--accent);
+}
+
+.card {
+  animation: border-pulse 3s ease-in-out infinite;
+}
+.card h3 {
+  text-shadow: 0 0 8px rgba(126, 231, 135, 0.5);
+}
+
+.tag {
+  animation: border-pulse 2.4s ease-in-out infinite;
+  text-shadow: 0 0 6px currentColor;
+}
+
+.links a {
+  animation: border-pulse 2.8s ease-in-out infinite;
+}
+
+.status-line .ok {
+  text-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent);
+  animation: text-glow-pulse 1.4s ease-in-out infinite;
+}
+
+.prompt .path { text-shadow: 0 0 6px var(--accent2); }
+.prompt .dollar { text-shadow: 0 0 6px var(--accent); }
+.cursor-blink { box-shadow: 0 0 8px var(--accent); }
+
+.marquee-wrap {
+  animation: border-pulse 3s ease-in-out infinite;
+}
+.marquee-wrap marquee { text-shadow: 0 0 6px var(--accent3); }
+
+.badge-row .badge { animation: glow-shift 4s linear infinite, mega-pulse 1.8s ease-in-out infinite; }
+
+.odometer span { animation: text-glow-pulse 1.2s ease-in-out infinite; }
+
+.confetti-btn { animation: border-pulse 1.6s ease-in-out infinite; }
+
+footer {
+  text-shadow: 0 0 6px rgba(138, 146, 158, 0.5);
+  animation: text-glow-pulse 4s ease-in-out infinite;
+}
+
+.wave { filter: drop-shadow(0 0 6px var(--accent3)); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}
